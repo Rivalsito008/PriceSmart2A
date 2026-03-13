@@ -18,7 +18,7 @@ productController.insertProducts = async (req, res) => {
 
 //Eliminar productos
 productController.deleteProducts = async (req, res) => {
-    await productsModel.findByIdAndDelete(id);
+    await productsModel.findByIdAndDelete(req.params.id);
     res.json({message: "Product deleted"});
 }
 

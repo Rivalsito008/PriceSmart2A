@@ -1,6 +1,6 @@
-import faqsModel from "../models/faqs.js";
-
 const faqsController = {}
+
+import faqsModel from "../models/faqs.js";
 
 //Obtener faqs
 faqsController.getFaqs = async (req, res) => {

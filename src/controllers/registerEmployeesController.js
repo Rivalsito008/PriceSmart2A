@@ -3,48 +3,50 @@ import crypto from "crypto" //Generar codigos aleatorios
 import JsonWebToken from "jsonwebtoken" //Generar token
 import bcryptjs from "bcryptjs" //Encriptar contraseñas
  
-import customerModel from "../models/customers.js"
+import employeeModel from "../models/employees.js"
  
 import {config} from "../config.js"
  
 //Creo un array de funciones
-const registerCustomersController = {};
+const registerEmployeesController = {};
  
-registerCustomersController.registrar = async (req, res) => {
+registerEmployeesController.registrar = async (req, res) => {
     try {
         const {
             name,
-            lastname,
-            birthday,
+            lastName,
+            salary,
+            DUI,
             email,
+            phone,
             password,
-            isVerified,
-            loginAttempts,
-            timeOut
+            idBranches,
+            isVerified
         } = req.body
  
         //verificamos si el correo ya esta registrado
-        const existCustomer = await customerModel.findOne({email})
-        if(existCustomer){
-            return res.status(400).json({message: "Customer already exists"})
+        const existEmployee = await employeeModel.findOne({email})
+        if(existEmployee){
+            return res.status(400).json({message: "Employee already exists"})
         }
  
         //Encriptar la contraseña
         const passwordHash = await bcryptjs.hash(password, 10)
  
         //Guardamos todo en la base de datos
-        const newCustomer = new customerModel({
+        const newEmployee = new employeeModel({
             name,
-            lastname,
-            birthday,
+            lastName,
+            salary,
+            DUI,
             email,
-            password: passwordHash,
-            isVerified,
-            loginAttempts,
-            timeOut,
+            phone,
+            password,
+            idBranches,
+            isVerified
         })
  
-        await newCustomer.save();
+        await newEmployee.save();
  
         //Generar codigo aleatorio
         const verificationCode = crypto.randomBytes(3).toString("hex")
@@ -90,7 +92,7 @@ registerCustomersController.registrar = async (req, res) => {
     }
 }
 
-registerCustomersController.verifyCode = async (req, res) => {
+registerEmployeesController.verifyCode = async (req, res) => {
     try {
         const { verificationCodeRequest} = req.body;
         const token = req.cookies.verificationTokenCookie
@@ -101,9 +103,9 @@ registerCustomersController.verifyCode = async (req, res) => {
             return res.status(400).json({message: "Invalid code"});
         }
 
-        const customer = await customerModel.findOne({email});
-        customer.isVerified = true;
-        await customer.save();
+        const employee = await employeeModel.findOne({email});
+        employee.isVerified = true;
+        await employee.save();
 
         res.clearCookie("verificationTokenCookie")
         res.json({message: "Email verified successfully"})
@@ -113,5 +115,5 @@ registerCustomersController.verifyCode = async (req, res) => {
     }
 }
 
-export default registerCustomersController;
+export default registerEmployeesController;
  

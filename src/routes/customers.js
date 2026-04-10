@@ -8,6 +8,6 @@ router.route("/")
 
 router.route("/:id")
     .put(customerController.updateCustomer)
-    .delete(customerController.deleteCustomer);
+    .delete(customerController.deleteCustomers);
 
 export default router;

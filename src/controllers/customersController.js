@@ -58,7 +58,7 @@ customerController.updateCustomer = async (req, res) => {
             }, {new:true}
         );
 
-        if(!updateCuatomer){
+        if(!updateCustomer){
             return res.status(400).json({message:"customer not found"});
         }
 
@@ -68,3 +68,5 @@ customerController.updateCustomer = async (req, res) => {
         return res.status(500).json({message : "Internal server error"});
     }
 }
+
+export default customerController;

@@ -11,6 +11,8 @@ import customersRouters from "./src/routes/customers.js"
 import registerCustomersRouters from "./src/routes/registerCustomers.js";
 import registerEmployeesRouters from "./src/routes/registerEmployees.js"
 import cookieParser from "cookie-parser";
+import loginCustomersRouters from "./src/routes/loginCustomer.js";
+import logoutRoutes from "./src/routes/logout.js";
 
 const app = express();
 
@@ -30,6 +32,8 @@ app.use("/api/clients", clientsRouters)
 app.use("/api/customers", customersRouters)
 app.use("/api/registerCustomers", registerCustomersRouters)
 app.use("/api/registerEmployees", registerEmployeesRouters)
+app.use("/api/login", loginCustomersRouters)
+app.use("/api/logout", logoutRoutes)
 
 
 export default app;

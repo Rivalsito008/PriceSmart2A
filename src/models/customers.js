@@ -8,7 +8,6 @@ const customerSchema = new Schema({
     password: {type: String},
     isVerified: {type: Boolean},
     loginAttempts: {type: Number},
-    loginAttepts: {type: Number},
     timeOut: {type: Date}
 },{
     timestamps: true,

@@ -5,7 +5,7 @@ import nodemailer from "nodemailer";
 import HTMLRecoveryEmail from "../utils/sendMailRecoveryPassowrd.js";
 
 import { config } from "../config.js"
-import customerModel from "../models/customerModel.js";
+import customerModel from "../models/customers.js";
 
 const recoveryPasswordController = {};
 

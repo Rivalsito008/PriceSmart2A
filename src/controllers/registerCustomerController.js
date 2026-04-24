@@ -73,7 +73,7 @@ registerCustomersController.registrar = async (req, res) => {
             from: config.email.user_email,
             to: email,
             subject: "Verificación de cuenta",
-            text: "para vereficar tu cuenta, utiliza este codigo " + verificationCode + "expira en 15 minutos"
+            text: "para verificar tu cuenta, utiliza este codigo " + verificationCode + " expira en 15 minutos"
         }
 
         transporter.sendMail(mailOptions, (error , info) =>{
@@ -92,12 +92,12 @@ registerCustomersController.registrar = async (req, res) => {
 
 registerCustomersController.verifyCode = async (req, res) => {
     try {
-        const { verificationCodeRequest} = req.body;
+        const {verificationCode} = req.body;
         const token = req.cookies.verificationTokenCookie
         const decoded = JsonWebToken.verify(token, config.JWT.secret)
         const {email, verificationCode: storedCode } = decoded;
 
-        if(verificationCodeRequest !== storedCode){
+        if(verificationCode !== storedCode){
             return res.status(400).json({message: "Invalid code"});
         }
 

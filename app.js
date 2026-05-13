@@ -15,8 +15,11 @@ import loginCustomersRouters from "./src/routes/loginCustomer.js";
 import logoutRoutes from "./src/routes/logout.js";
 import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js";
 import cors from "cors";
+import limiter from "./middlewares/rateLimiter.js";
  
 const app = express();
+
+app.use(limiter);
 
 app.use(cors({
     origin: ["http://localhost:5173", "http://localhost:5174"], 

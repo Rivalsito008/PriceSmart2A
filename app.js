@@ -16,7 +16,8 @@ import logoutRoutes from "./src/routes/logout.js";
 import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js";
 import cors from "cors";
 import limiter from "./middlewares/rateLimiter.js";
-import providerRoutes from "./src/routes/provider.js"
+import providerRoutes from "./src/routes/provider.js";
+import wompiRoutes from "./src/routes/wo1mpiToken.js";
  
 const app = express();
 
@@ -47,6 +48,7 @@ app.use("/api/login", loginCustomersRouters)
 app.use("/api/logout", logoutRoutes)
 app.use("/api/recoveryPassword", recoveryPasswordRoutes)
 app.use("/api/provider", providerRoutes)
+app.use("/api/wompi", wompiRoutes)
 
 
 export default app;

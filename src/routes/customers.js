@@ -1,13 +1,17 @@
 import express from "express";
-import customerController from "../controllers/customersController.js"
-
+import {
+    getCustomers,
+    updateCustomer,
+    deleteCustomers
+} from "../controllers/customersController.js";
+import { validateAuthCokkie } from "../middlewares/authMiddleware.js";
 const router = express.Router();
 
 router.route("/")
-    .get(customerController.getCustomers)
+    .get(validateAuthCokkie(['admin']), getCustomers)
 
 router.route("/:id")
-    .put(customerController.updateCustomer)
-    .delete(customerController.deleteCustomers);
+    .put(validateAuthCokkie(['admin']), updateCustomer)
+    .delete(validateAuthCokkie(['admin']), deleteCustomers);
 
 export default router;

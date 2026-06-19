@@ -15,10 +15,13 @@ import loginCustomersRouters from "./src/routes/loginCustomer.js";
 import logoutRoutes from "./src/routes/logout.js";
 import recoveryPasswordRoutes from "./src/routes/recoveryPassword.js";
 import cors from "cors";
-import limiter from "./middlewares/rateLimiter.js";
+import limiter from "./src/middlewares/rateLimiter.js";
 import providerRoutes from "./src/routes/provider.js";
 import wompiRoutes from "./src/routes/wompiToken.js";
 import deliveryDriverRoutes from "./src/routes/deliveryDriver.js"
+import { validateAuthCokkie } from "./src/middlewares/authMiddleware.js";
+import loginAdminRoutes from "./src/routes/loginAdmin.js";
+import registerAdminController from "./src/routes/registerAdmin.js";
  
 const app = express();
 
@@ -37,7 +40,7 @@ app.use(express.json());
 app.use("/api/products", productsRouters)
 app.use("/api/faqs", faqsRouters)
 app.use("/api/branches", branchesRouters)
-app.use("/api/employees", employeesRouters)
+app.use("/api/employees", validateAuthCokkie(['admin']), employeesRouters)
 app.use("/api/reviews", reviewsRouters)
 app.use("/api/brands", brandsRouters)
 app.use("/api/admins", adminsRouters)
@@ -48,8 +51,10 @@ app.use("/api/registerEmployees", registerEmployeesRouters)
 app.use("/api/login", loginCustomersRouters)
 app.use("/api/logout", logoutRoutes)
 app.use("/api/recoveryPassword", recoveryPasswordRoutes)
-app.use("/api/provider", providerRoutes)
+app.use("/api/provider", validateAuthCokkie(['admin', 'customer']), providerRoutes)
 app.use("/api/wompi", wompiRoutes)
 app.use("/api/deliveryDriver", deliveryDriverRoutes)
+app.use("/api/loginAdmin", loginAdminRoutes)
+app.use("/api/registerAdmin", registerAdminController)
 
 export default app;

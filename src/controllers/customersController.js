@@ -1,8 +1,6 @@
 import customerModel from "../models/customers.js"
 
-const customerController = {};
-
-customerController.getCustomers = async (req, res) => {
+export const getCustomers = async (req, res) => {
     try{
         const customers = await customerModel.find();
         return res.status(200).json(customers)
@@ -12,7 +10,7 @@ customerController.getCustomers = async (req, res) => {
     }
 }
 
-customerController.deleteCustomers = async (req, res) => {
+export const deleteCustomers = async (req, res) => {
     try{
         const deletedCustomers = await customerModel.findByIdAndDelete(req.params.id);
         if(!deletedCustomers){
@@ -25,7 +23,7 @@ customerController.deleteCustomers = async (req, res) => {
     }
 }
 
-customerController.updateCustomer = async (req, res) => {
+export const updateCustomer = async (req, res) => {
     try{
         let {
             name,
@@ -68,5 +66,3 @@ customerController.updateCustomer = async (req, res) => {
         return res.status(500).json({message : "Internal server error"});
     }
 }
-
-export default customerController;

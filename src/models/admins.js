@@ -12,6 +12,12 @@ const adminsSchema = new Schema({
     },
     isVerified:{
         type: Boolean,
+    },
+    loginAttempts:{
+        type: Number,
+    },
+    timeOut:{
+        type: Date,
     }
 },{
     timestamps: true,
